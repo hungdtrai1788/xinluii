@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Xinlui Vittt</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    background: #ffecec;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Arial, sans-serif;
+}
+
+/* Khung mini */
+.modal {
+    background: white;
+    border-radius: 12px;
+    padding: 14px 16px;
+    text-align: center;
+    width: 230px;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.18);
+}
+
+/* Nội dung */
+#text {
+    font-size: 14px;
+    margin-bottom: 10px;
+    transition: font-size 0.25s ease;
+}
+
+/* Nút */
+button {
+    padding: 6px 14px;
+    margin: 0 4px;
+    border: none;
+    border-radius: 14px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: transform 0.25s ease;
+}
+
+.yes {
+    background: #ff6b6b;
+    color: white;
+}
+
+.no {
+    background: #e6e6e6;
+}
+</style>
+</head>
+
+<body>
+
+<div class="modal">
+    <div id="text">Bạn có muốn tha lỗi cho tớ hơm?</div>
+    <button class="yes" id="yesBtn" onclick="pressYes()">Có</button>
+    <button class="no" id="noBtn" onclick="pressNo()">Không</button>
+</div>
+
+<script>
+let noCount = 0;
+
+/* kích thước ban đầu */
+let textSize = 14;
+let yesScale = 1;
+let noScale = 1;
+
+const messages = [
+    "Tha lỗi cho tớ ii mò 🥺",
+    "T xin lỗi mò, lần sau không thế nữa 😭",
+    "I mò bạn Vitt 💔",
+    "Tớ biết tớ sai mà...",
+    "Tha cho tớ đi mà 😞",
+    "Tớ buồn lắm đó..."
+];
+
+const finalMessage = "v thôi xinlui bạn tớ hong làm phiền cậu nua";
+const yesMessage   = "v tớ cảm ơn cậu nhìu đừng dỗi tớ nua nhé";
+
+function pressYes() {
+    const text = document.getElementById("text");
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+
+    text.innerText = yesMessage;
+
+    /* ẩn nút sau khi đồng ý */
+    yesBtn.style.display = "none";
+    noBtn.style.display = "none";
+}
+
+function pressNo() {
+    noCount++;
+
+    const text = document.getElementById("text");
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+
+    /* chữ to dần */
+    textSize += 2;
+    text.style.fontSize = textSize + "px";
+
+    /* nút CÓ to dần */
+    yesScale += 0.15;
+    yesBtn.style.transform = `scale(${yesScale})`;
+
+    /* nút KHÔNG nhỏ dần */
+    noScale = Math.max(noScale - 0.15, 0.3);
+    noBtn.style.transform = `scale(${noScale})`;
+
+    if (noCount < 7) {
+        text.innerText = messages[noCount - 1] || messages[messages.length - 1];
+    } else {
+        /* chốt câu cuối */
+        text.innerText = finalMessage;
+        yesBtn.style.display = "none";
+        noBtn.style.display = "none";
+    }
+}
+</script>
+
+</body>
+</html>
